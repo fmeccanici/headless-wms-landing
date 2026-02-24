@@ -2,7 +2,7 @@
 /public/hot
 /public/storage
 /storage/*.key
-/packages
+# /packages  — uitgeschakeld zodat homedesignshops/laravel-ddd mee wordt gecommit en op de server beschikbaar is
 /vendor
 .DS_Store
 .env
