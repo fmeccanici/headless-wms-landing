@@ -1,0 +1,50 @@
+# PHP
+# Test and package your PHP project.
+# Add steps that run tests, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/php
+
+trigger:
+  - master
+  - develop
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  phpVersion: 8.1
+
+steps:
+  - script: |
+      sudo update-alternatives --set php /usr/bin/php$(phpVersion)
+      sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
+      sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
+      sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
+      sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
+      php -version
+    displayName: 'Use PHP version $(phpVersion)'
+
+  - task: CmdLine@2
+    displayName: 'Custom git clone'
+    inputs:
+      script: |
+        echo 'Cloning into sources folder at: $(Build.SourcesDirectory)'
+        git clone https://floris:$(AZURE_DEVOPS_PAT)@dev.azure.com/homedesignshops/Legacy.SiteManager.Web/_git/Laravel.DDD packages/homedesignshops/laravel-ddd
+        exit
+
+  - script: composer install --no-interaction --prefer-dist
+    displayName: 'composer install'
+
+  - script: npm install
+    displayName: 'npm install'
+
+  - script: npm run prod
+    displayName: 'npm run production'
+
+  - script: cp .env.example .env
+    displayName: 'cp .env.example .env'
+
+  - script: php artisan key:generate
+    displayName: 'php artisan key:generate'
+
+  - script: php artisan test
+    displayName: 'php artisan test'
