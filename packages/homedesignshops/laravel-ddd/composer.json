@@ -1,0 +1,52 @@
+{
+    "name": "homedesignshops/laravel-ddd",
+    "description": "Helps you to create a beautiful DDD structure in Laravel",
+    "keywords": [
+        "homedesignshops",
+        "laravel-ddd"
+    ],
+    "homepage": "https://github.com/homedesignshops/laravel-ddd",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Kevin Koenen",
+            "email": "kevin@homedesignshops.nl",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1|^7.3|^8.0",
+        "illuminate/support": "^5.7|^6.0|^7.0|^8.0|^9.0",
+        "lezhnev74/pasvl": "^1.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.7|^6.0|^7.0",
+        "phpunit/phpunit": "^7.0|^9.3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "HomeDesignShops\\LaravelDdd\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "HomeDesignShops\\LaravelDdd\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "HomeDesignShops\\LaravelDdd\\LaravelDddServiceProvider"
+            ]
+        }
+    }
+}
